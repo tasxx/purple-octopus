@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.Scanner;             Example 1:
 
 public class Main {
     public static void main(String[] args) {
@@ -9,3 +9,84 @@ public class Main {
         System.out.println("In 10 years, you will be " + ageIn10Years + " years old.");
     }
 }
+
+-------------------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;             Example 2:
+
+public class Twice {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter your name: ");
+        String name = scanner.nextLine();
+        Scanner scanner1 = new Scanner(System.in);
+        System.out.println("Enter your current age: ");
+        int Age = scanner1.nextInt();
+        if (Age < 13) {
+            System.out.println("You are called " + name + ", and you are a new gen.");
+        } else if (Age >= 13 && Age < 20) {
+            System.out.println("You are called " + name + ", and you are a teenager.");
+        } else if (Age >= 20) {
+            System.out.println("You are called " + name + ", and you are an UNC brochacho.");
+        }
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;             Example 3:
+
+public class Lib {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Which times table would you like to see? ");
+        int timesTable = scanner.nextInt();
+        System.out.print("What number should we start from? ");
+        int start = scanner.nextInt();
+        System.out.print("What number should we end at? ");
+        int end = scanner.nextInt();
+        System.out.println("\nTimes table for " + timesTable + ":");
+        System.out.println("--------------------------------");
+        for (int i = start; i <= end; i++) {
+            int result = timesTable * i;
+            System.out.println(timesTable + " × " + i + " = " + result);
+        }
+
+Scanner scanner1 = new Scanner(System.in);                            Example 4:
+        System.out.println("Enter a number(enter 999 to stop): ");
+        int number = scanner1.nextInt();
+        int total = 0;
+        while (number != 999) {
+            total = total + number;
+            System.out.println("Your current total is: " + total);
+            System.out.println("Enter a number: ");
+            number = scanner1.nextInt();
+        }
+
+        System.out.println("Your final total is: " + total);
+
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
