@@ -1,76 +1,80 @@
-import java.util.Scanner;        (CLASS Lib):                         Example 1:
+import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+public class Lib {
+    Scanner scanner = new Scanner(System.in);
+
+    public void age() {
         System.out.print("Enter your current age: ");
         int currentAge = scanner.nextInt();
         int ageIn10Years = currentAge + 10;
         System.out.println("In 10 years, you will be " + ageIn10Years + " years old.");
+    }
 
-
-                                                                      
-                                                                      Example 2:
-        Scanner scanner1 = new Scanner(System.in);
+    public void teenager() {
         System.out.print("Enter your name: ");
-        String name = scanner1.nextLine();
-        Scanner scanner2 = new Scanner(System.in);
+        String name = scanner.next();
         System.out.println("Enter your current age: ");
-        int Age = scanner2.nextInt();
+        int Age = scanner.nextInt();
         if (Age < 13) {
-            System.out.println("You are called " + name + ", and you are a new gen.");
+            System.out.println("You are called " + name + ", and you are a child.");
         } else if (Age >= 13 && Age < 20) {
             System.out.println("You are called " + name + ", and you are a teenager.");
         } else if (Age >= 20) {
-            System.out.println("You are called " + name + ", and you are an UNC brochacho.");
+            System.out.println("You are called " + name + ", and you are an adult.");
         }
+    }
 
 
-                                                                      
-                                                                      Example 3:
-        Scanner scanner3 = new Scanner(System.in);
+    public void timesTable() {
         System.out.print("Which times table would you like to see? ");
-        int timesTable = scanner3.nextInt();
+        int timesTable = scanner.nextInt();
         System.out.print("What number should we start from? ");
-        int start = scanner3.nextInt();
+        int start = scanner.nextInt();
         System.out.print("What number should we end at? ");
-        int end = scanner3.nextInt();
+        int end = scanner.nextInt();
         System.out.println("\nTimes table for " + timesTable + ":");
         for (int i = start; i <= end; i++) {
             int result = timesTable * i;
             System.out.println(timesTable + " × " + i + " = " + result);
         }
+    }
 
-        
-  
-                                                                      Example 4:
-        Scanner scanner4 = new Scanner(System.in);                     
+    public void whileTest() {
         System.out.println("Enter a number(enter 999 to stop): ");
-        int number = scanner4.nextInt();
+        int number = scanner.nextInt();
         int total = 0;
         while (number != 999) {
             total = total + number;
             System.out.println("Your current total is: " + total);
             System.out.println("Enter a number: ");
-            number = scanner4.nextInt();
+            number = scanner.nextInt();
         }
         System.out.println("Your final total is: " + total);
+    }
+
+    public int max2(int n1, int n2) {
+        if (n1 > n2) {
+            return n1;
+        } else {
+            return n2;
+        }
 
 
+    }
 
-                                                                      Example 5:
-        Lib1 lib1 = new Lib1();
+    public void maxNum() {
+
         Scanner scanner5 = new Scanner(System.in);
         System.out.print("Enter first number: ");
         int num1 = scanner5.nextInt();
         System.out.print("Enter second number: ");
         int num2 = scanner5.nextInt();
-        int maximum = lib1.max2(num1, num2);
+        int maximum = max2(num1, num2);
         System.out.println("The maximum number is: " + maximum);
-    
-    
 
-                                                                      Example 6:
+    }
+
+    public void mean() {
         Scanner scanner6 = new Scanner(System.in);
         int max = Integer.MIN_VALUE;
         int min = Integer.MAX_VALUE;
@@ -86,23 +90,26 @@ public class Main {
                 min = number2;
             }
             sum = sum + number2;
-         }
+        }
         double mean = sum / 10.0;
         System.out.println("\nResults:");
         System.out.println("Biggest: " + max);
         System.out.println("Smallest: " + min);
         System.out.println("Mean: " + mean);
+    }
 
-    
 
-                                                                      Example 7:
+    public void array() {
+
         System.out.println("Index\tValue:");
-        int array[] = {1,2,3,4,5,6,7,8,9,10};
+        int array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
         for (int i = 0; i < array.length; i++) {
             System.out.println(i + "\t\t" + array[i]);
         }
+    }
 
+    public void bigArray() {
 
         Scanner scanner7 = new Scanner(System.in);
         System.out.println("Enter the size of the array:");
@@ -117,7 +124,9 @@ public class Main {
             System.out.println(arraysize[i]);
         }
 
+    }
 
+    public void arrayExtra() {
 
 
         Scanner scanner8 = new Scanner(System.in);
@@ -137,40 +146,32 @@ public class Main {
             }
             System.out.println();
         }
-    
-    }
-}
 
-------------------------------------------------------------------------------------------------------------
-                                    (CLASS Lib1):
-public class Lib1 {
-    public int max2(int n1, int n2){
-        if (n1 > n2){
-            return n1;
-        } else {
-            return n2;
-        }
-    }
-}
 
-------------------------------------------------------------------------------------------------------------
-                                    (CLASS Lib2):
-public class Lib2 {
-    public static void main(String[] args) {
-        String board[][] = new String [6][6];
-        char Board[][]= new char[6][6];
-        for (int i=0; i<6; i++) {
-            for (int j = 0; j < 6; j++) {
-                Board[i][j] = "[ ]";
+    }
+
+
+    public void setupGrid() {
+        String board[][] = new String[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = "[ ]";
             }
         }
+        printBoard(board);
+    }
+
+    public void printBoard(String b[][]) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.print(b[i][j]);
+            }
+
+        }
 
     }
 
-
 }
-
-
 
 
 
