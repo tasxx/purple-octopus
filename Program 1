@@ -154,8 +154,21 @@ public class Lib1 {
 }
 
 ------------------------------------------------------------------------------------------------------------
+                                    (CLASS Lib2):
+public class Lib2 {
+    public static void main(String[] args) {
+        String board[][] = new String [6][6];
+        char Board[][]= new char[6][6];
+        for (int i=0; i<6; i++) {
+            for (int j = 0; j < 6; j++) {
+                Board[i][j] = "[ ]";
+            }
+        }
+
+    }
 
 
+}
 
 
 
