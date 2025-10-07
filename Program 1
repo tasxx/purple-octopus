@@ -150,26 +150,40 @@ public class Lib {
 
     }
 
+ public void setupGrid () {
+            String board[][] = new String[3][3];
+            String p1 = "X";
+            String p2 = "O";
+            printBoard(board);
+            boolean hasWon=false;
+            while(!hasWon) {
+                int[][] getChoice = new int[scanner.nextInt()][scanner.nextInt()];
+                int row = scanner.nextInt() - 1;
+                int col = scanner.nextInt() - 1;
+                if (hasWon = true);
+                  System.out.print("[ ]");
+            
+            
 
-    public void setupGrid() {
-        String board[][] = new String[3][3];
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                board[i][j] = "[ ]";
             }
-        }
-        printBoard(board);
+
     }
 
-    public void printBoard(String b[][]) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.print(b[i][j]);
-            }
+        public void printBoard (String b[][]){
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    System.out.print(b[i][j]);
+                }
 
+
+            }
         }
 
-    }
+
+
+
+
+
 
 }
 
