@@ -274,12 +274,12 @@ public class Lib {
         System.out.println("The Ascii value is " + Number);
     }
 
-    public void getAscii2() {
+   public void getAscii2() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the value");
         char Number = scanner.next().charAt(0);
         int Character = (int) Number;
-        System.out.println(Character);
+        System.out.println("The Ascii value is " + Character);
     }
 
 
