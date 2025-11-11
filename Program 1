@@ -239,6 +239,83 @@ public class Lib {
     }
 
 
+   
+    public void array2() {
+        int array2[] = {1, 2, 67, 41, 61};
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the value");
+        int target = scanner.nextInt();
+        for (int i = 0; i < array2.length; i++) {
+            if (target != array2[i]) {
+                System.out.println("The target value is not the same for number " + (i + 1) + " in the array");
+            } else {
+                target = array2[i];
+                System.out.println("The target value is number " + (i + 1) + " in the array");
+            }
+        }
+    }
+
+    public void array3() {
+        int array3[] = {2, 4, 6, 7, 9};
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the value");
+        int target = scanner.nextInt();
+        for (int i = 0; i < array3.length; ) {
+        }
+
+    }
+
+
+    public void getAscii() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the value");
+        int Character = scanner.nextInt();
+        char Number = (char) Character;
+        System.out.println("The Ascii value is " + Number);
+    }
+
+    public void getAscii2() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the value");
+        String Number = scanner.nextLine();
+        char Character = (char) Number;
+        int Character1 = (int) Number;
+        System.out.println(Character1);
+    }
+
+
+
+
+    public void name() {
+        int Character = 84;
+        char Number = (char) Character;
+        int Character1 = 65;
+        char Number1 = (char) Character1;
+        int Character2 = 83;
+        char Number2 = (char) Character2;
+        int Character3 = 70;
+        char Number3 = (char) Character3;
+        int Character4 = 73;
+        char Number4 = (char) Character4;
+        int Character5 = 65;
+        char Number5 = (char) Character5;
+        System.out.println("My name is " + Number+Number1+Number2+Number3+Number4+Number5);
+    }
+
+
+    public void String() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the message u want to encrypt");
+        int String = scanner.nextInt();
+        System.out.println("The value for Message has turned into, " +  String);
+    }
+
+
+
+
+
+
+
 }
 
 
