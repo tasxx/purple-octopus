@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Lib {
     public static void main(String[] args) {
         Lib lib = new Lib();
-        lib.setupGrid();
+        lib.encryptMessage()
     }
 
     Scanner scanner = new Scanner(System.in);
@@ -301,11 +301,22 @@ public class Lib {
     }
 
 
-    public void String() {
+    
+public void encryptMessage() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the message u want to encrypt");
-        int String = scanner.nextInt();
-        System.out.println("The value for Message has turned into, " +  String);
+        System.out.println("Enter the message you want to encrypt:");
+        String message = scanner.nextLine();
+
+        System.out.print("Encrypted ASCII values: ");
+        for (int i = 0; i < message.length(); i++) {
+            char character = message.charAt(i);
+            int asciiValue = (int) character;
+            System.out.print(asciiValue);
+            if (i < message.length() - 1) {
+                System.out.print(" ");
+            }
+        }
+        System.out.println();
     }
 
 
