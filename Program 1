@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Lib {
     public static void main(String[] args) {
         Lib lib = new Lib();
-        lib.encryptMessage()
+        lib.decryptMessage()
     }
 
     Scanner scanner = new Scanner(System.in);
@@ -302,15 +302,17 @@ public class Lib {
 
 
     
-public void encryptMessage() {
+ public void encryptMessage() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the message you want to encrypt:");
         String message = scanner.nextLine();
-
+        System.out.println("Enter the key you want to encrypt:");
+        int shift = scanner.nextInt();
         System.out.print("Encrypted ASCII values: ");
         for (int i = 0; i < message.length(); i++) {
             char character = message.charAt(i);
             int asciiValue = (int) character;
+            asciiValue = asciiValue + shift;
             System.out.print(asciiValue);
             if (i < message.length() - 1) {
                 System.out.print(" ");
@@ -320,6 +322,27 @@ public void encryptMessage() {
     }
 
 
+
+
+    public void decryptMessage() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the message you want to decrypt:");
+        String message = scanner.nextLine();
+        System.out.println("Enter the key you want to decrypt:");
+        int shift = scanner.nextInt();
+        System.out.print("Decrypted ASCII values: ");
+        for (int i = 0; i < message.length(); i++) {
+            char character = message.charAt(i);
+            int asciiValue = (int) character;
+            asciiValue = asciiValue - shift;
+            char ascii = (char) asciiValue;
+            System.out.print(ascii);
+            if (i < message.length() - 1) {
+                System.out.print(" ");
+            }
+        }
+        System.out.println();
+    }
 
 
 
