@@ -29,22 +29,29 @@ public class Main extends ApplicationAdapter {
     public void render() {
         float deltaTime = Gdx.graphics.getDeltaTime();
         rectX += velocityX * deltaTime;
-
-
         if (rectX <= 0) {
             rectX = 0;
             velocityX = Math.abs(velocityX);
         } else if (rectX + rectWidth >= Gdx.graphics.getWidth() ) {
             rectX = Gdx.graphics.getWidth() - rectWidth;
             velocityX = -Math.abs(velocityX);
-
         }
+
+        rectY += velocityY * deltaTime;
+        if (rectY <= 0) {
+            rectY = 0;
+            velocityY = Math.abs(velocityY);
+        } else if (rectY + rectHeight >= Gdx.graphics.getHeight() ) {
+            rectY = Gdx.graphics.getHeight() - rectHeight;
+            velocityY = -Math.abs(velocityY);
+        }
+
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.rect(rectX, rectY, rectWidth, rectHeight);
         sr.end();
         batch.begin();
-        batch.draw(image, 70, 210);
+        batch.draw(image, 0, 0);
         batch.end();
     }
 
