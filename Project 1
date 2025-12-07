@@ -1,64 +1,350 @@
+PONG CLASS
 package io.github.some_example_name;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.Input;
+
+/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
+public class Pong extends ApplicationAdapter {
+    ShapeRenderer sr;
+
+
+
+
+    private float cirX = 30;
+    private float cirY = 30;
+    private float cirR = 20;
+    private float cirWidth = cirR;
+    private float cirHeight = cirR;
+    private float velocityX = 200;
+    private float velocityY = 200;
+
+
+    private float rectX = 50;
+    private float rectY = 200;
+    private float rectWidth = 25;
+    private float rectHeight = 100;
+    private float velocity1X = 200;
+    private float velocity1Y = 200;
+
+
+    private float rect2X = 615;
+    private float rect2Y = 200;
+    private float rect2Width = 25;
+    private float rect2Height = 100;
+    private float velocity2X = 200;
+    private float velocity2Y = 200;
+
+
+
+    @Override
+    public void create() {
+        sr = new ShapeRenderer();
+    }
+
+
+
+    @Override
+    public void render() {
+        ScreenUtils.clear(0.25f, 0.15f, 0.5f, 1f);
+        float deltaTime = Gdx.graphics.getDeltaTime();
+        cirX += velocityX * deltaTime;
+        if (cirX <= 0) {
+            cirX = 0;
+            velocityX = Math.abs(velocityX);
+        } else if (cirX + cirWidth >= Gdx.graphics.getWidth() ) {
+            cirX = Gdx.graphics.getWidth() - cirR;
+            velocityX = -Math.abs(velocityX);
+        }
+
+        cirY += velocityY * deltaTime;
+        if (cirY <= 0) {
+            cirY = 0;
+            velocityY = Math.abs(velocityY);
+        } else if (cirY + cirHeight >= Gdx.graphics.getHeight() ) {
+            cirY = Gdx.graphics.getHeight() - cirR;
+            velocityY = -Math.abs(velocityY);
+        }
+
+
+        cirY += velocityY * deltaTime;
+        cirX += velocityX * deltaTime;
+        if (cirX < rectX + rectWidth) {
+            cirX = rectWidth + velocity1X * deltaTime;
+            velocityX = Math.abs(velocityX);
+        } else if (cirX + rectWidth >= Gdx.graphics.getWidth() ) {
+            cirX = Gdx.graphics.getWidth() - cirR;
+            velocityX = -Math.abs(velocityX);
+        }
+
+
+
+
+
+//-------------------------------------------------------------------------------------------
+
+        if (rectY <= 0) {
+            rectY = 0;
+            velocity1Y = Math.abs(velocity1Y);
+        } else if (rectY + rectHeight >= Gdx.graphics.getHeight() ) {
+            rectY = Gdx.graphics.getHeight() - rectHeight;
+            velocity1Y = -Math.abs(velocity1Y);
+        }
+
+
+        if (rect2Y <= 0) {
+            rect2Y = 0;
+            velocity2Y = Math.abs(velocity2Y);
+        } else if (rect2Y + rect2Height >= Gdx.graphics.getHeight() ) {
+            rect2Y = Gdx.graphics.getHeight() - rect2Height;
+            velocity2Y = -Math.abs(velocity2Y);
+        }
+
+
+
+
+
+
+
+
+        sr.begin(ShapeRenderer.ShapeType.Filled);
+            sr.setColor(Color.RED);
+            sr.circle(cirX, cirY, cirR);
+            sr.setColor(Color.WHITE);
+            sr.rect(rectX, rectY, rectWidth, rectHeight);
+            sr.rect(rect2X, rect2Y, rect2Width, rect2Height);
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            rect2Y = rect2Y + -10;
+            sr.rect(rect2X, rect2Y, rect2Width, rect2Height);
+            }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)){
+            rect2Y = rect2Y + 10;
+            sr.rect(rect2X, rect2Y, rect2Width, rect2Height);
+            }
+        if  (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            rectY = rectY + -10;
+            sr.rect(rectX, rectY, rectWidth, rectHeight);
+            }
+        if  (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            rectY = rectY + 10;
+            sr.rect(rectX, rectY, rectWidth, rectHeight);
+        }
+        sr.end();
+
+
+
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAIN CLASS
+package io.github.some_example_name;
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class Main extends ApplicationAdapter {
-    private SpriteBatch batch;
-    private Texture image;
-    ShapeRenderer sr;
-    private float rectX = 10;
-    private float rectY = 10;
-    private float rectWidth = 100;
-    private float rectHeight = 100;
-    private float velocityX = 200;
+public class Main extends ApplicationAdapter{
+    ShapeRenderer shape = new ShapeRenderer();
+    Ball ball;
+    private int x = getX();
+    private int y = getY();
+    private int width = getWidth();
+    private int height = getHeight();
+
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
+    public int getWidth() {
+        return width;
+    }
+    public int getHeight() {
+        return height;
+    }
+
+
 
     @Override
     public void create() {
-        batch = new SpriteBatch();
-        image = new Texture("libgdx.png");
-        sr = new ShapeRenderer();
+        shape =  new ShapeRenderer();
+        ball = new Ball(10,10,50,50);
+
     }
+
+
+
 
     @Override
     public void render() {
-        float deltaTime = Gdx.graphics.getDeltaTime();
-        rectX += velocityX * deltaTime;
-        if (rectX <= 0) {
-            rectX = 0;
-            velocityX = Math.abs(velocityX);
-        } else if (rectX + rectWidth >= Gdx.graphics.getWidth() ) {
-            rectX = Gdx.graphics.getWidth() - rectWidth;
-            velocityX = -Math.abs(velocityX);
-        }
-
-        rectY += velocityY * deltaTime;
-        if (rectY <= 0) {
-            rectY = 0;
-            velocityY = Math.abs(velocityY);
-        } else if (rectY + rectHeight >= Gdx.graphics.getHeight() ) {
-            rectY = Gdx.graphics.getHeight() - rectHeight;
-            velocityY = -Math.abs(velocityY);
-        }
-
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-        sr.begin(ShapeRenderer.ShapeType.Filled);
-        sr.rect(rectX, rectY, rectWidth, rectHeight);
-        sr.end();
-        batch.begin();
-        batch.draw(image, 0, 0);
-        batch.end();
+        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1);
+        shape.begin(ShapeRenderer.ShapeType.Filled);
+        ball.draw(shape);
+        //renderBrick();
+        shape.end();
     }
+
+
+
 
     @Override
     public void dispose() {
-        batch.dispose();
-        image.dispose();
+        shape.dispose();
     }
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BALL CLASS
+package io.github.some_example_name;
+
+import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
+public class Ball extends ApplicationAdapter {
+    private int x;
+    private int y;
+    private int width;
+    private int height;
+    private Color col;
+
+
+    public Ball(int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.col = new Color();
+    }
+
+    public int setX() {
+        return x;
+    }
+
+    public int setY() {
+        return y;
+    }
+
+    public int setWidth() {
+        return width;
+    }
+
+    public int setHeight() {
+        return height;
+    }
+
+    public Color setCol() {
+        return col;
+    }
+
+    public void draw(ShapeRenderer shape) {
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
