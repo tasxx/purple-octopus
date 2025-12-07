@@ -170,53 +170,49 @@ public class Pong extends ApplicationAdapter {
 
 MAIN CLASS
 package io.github.some_example_name;
+
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class Main extends ApplicationAdapter{
-    ShapeRenderer shape = new ShapeRenderer();
+public class Main extends ApplicationAdapter {
+    ShapeRenderer shape;
     Ball ball;
-    private int x = getX();
-    private int y = getY();
-    private int width = getWidth();
-    private int height = getHeight();
-
-    public int getX() {
-        return x;
-    }
-    public int getY() {
-        return y;
-    }
-    public int getWidth() {
-        return width;
-    }
-    public int getHeight() {
-        return height;
-    }
-
+    List<Brick> bricks = new ArrayList<>();
 
 
     @Override
     public void create() {
-        shape =  new ShapeRenderer();
-        ball = new Ball(10,10,50,50);
-
+        shape = new ShapeRenderer();
+        ball = new Ball(10, 10, 25, 25);
+        float brickWidth = 75f;
+        float brickHeight = 30f;
+        float startX = 10f;
+        float startY = Gdx.graphics.getHeight() - brickHeight - 10f; // Near top
+        float spacing = brickWidth + 15f;
+        for (int i = 0; i < 5; i++) {
+            float brickX = startX + i * spacing;
+            bricks.add(new Brick(brickX, startY, brickWidth, brickHeight, Color.WHITE));
+        }
     }
-
-
-
 
     @Override
     public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1);
+        ball.update(Gdx.graphics.getDeltaTime());
         shape.begin(ShapeRenderer.ShapeType.Filled);
         ball.draw(shape);
-        //renderBrick();
+        for (Brick brick : bricks) {
+            brick.draw(shape);
+        }
         shape.end();
     }
-
 
 
 
@@ -224,11 +220,6 @@ public class Main extends ApplicationAdapter{
     public void dispose() {
         shape.dispose();
     }
-
-
-
-
-
 }
 
 
@@ -261,52 +252,83 @@ public class Main extends ApplicationAdapter{
 BALL CLASS
 package io.github.some_example_name;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class Ball extends ApplicationAdapter {
-    private int x;
-    private int y;
-    private int width;
-    private int height;
+public class Ball {
+    private float x;
+    private float y;
+    private float width;
+    private float height;
     private Color col;
+    private float velocityX = 200f;
+    private float velocityY = 200f;
 
-
-    public Ball(int x, int y, int width, int height) {
+    public Ball(float x, float y, float width, float height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.col = new Color();
+        this.col = new Color(Color.RED);
     }
 
-    public int setX() {
+    public float getX() {
         return x;
     }
 
-    public int setY() {
+    public float getY() {
         return y;
     }
 
-    public int setWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public int setHeight() {
+    public float getHeight() {
         return height;
     }
 
-    public Color setCol() {
+    public Color getCol() {
         return col;
     }
 
-    public void draw(ShapeRenderer shape) {
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
     }
 
 
+    public void update(float delta) {
+        x += velocityX * delta;
+        y += velocityY * delta;
 
 
+        if (x <= 0) {
+            x = 0;
+            velocityX = Math.abs(velocityX);
+        } else if (x + width >= Gdx.graphics.getWidth()) {
+            x = Gdx.graphics.getWidth() - width;
+            velocityX = -Math.abs(velocityX);
+        }
+
+        if (y <= 0) {
+            y = 0;
+            velocityY = Math.abs(velocityY);
+        } else if (y + height >= Gdx.graphics.getHeight()) {
+            y = Gdx.graphics.getHeight() - height;
+            velocityY = -Math.abs(velocityY);
+        }
+    }
+
+
+    public void draw(ShapeRenderer shape) {
+        shape.setColor(col);
+        shape.rect(x, y, width, height);
+    }
 }
 
 
@@ -341,6 +363,32 @@ public class Ball extends ApplicationAdapter {
 
 
 
+BRICK CLASS
+package io.github.some_example_name;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
+public class Brick {
+    private float x;
+    private float y;
+    private float width;
+    private float height;
+    private Color color;
+
+    public Brick(float x, float y, float width, float height, Color color) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = color;
+    }
+
+    public void draw(ShapeRenderer shape) {
+        shape.setColor(color);
+        shape.rect(x, y, width, height);
+    }
+}
 
 
 
