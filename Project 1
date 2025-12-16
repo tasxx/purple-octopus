@@ -168,6 +168,12 @@ public class Pong extends ApplicationAdapter {
 
 
 
+
+
+
+
+
+
 MAIN CLASS
 package io.github.some_example_name;
 
@@ -175,43 +181,142 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import java.util.ArrayList;
-import java.util.List;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
     ShapeRenderer shape;
     Ball ball;
-    List<Brick> bricks = new ArrayList<>();
+    Brick[][] bricks = new Brick[8][9];
+    Paddle paddle;
+    Color co;
 
 
     @Override
     public void create() {
         shape = new ShapeRenderer();
         ball = new Ball(10, 10, 25, 25);
-        float brickWidth = 75f;
-        float brickHeight = 30f;
-        float startX = 10f;
-        float startY = Gdx.graphics.getHeight() - brickHeight - 10f; // Near top
-        float spacing = brickWidth + 15f;
-        for (int i = 0; i < 5; i++) {
-            float brickX = startX + i * spacing;
-            bricks.add(new Brick(brickX, startY, brickWidth, brickHeight, Color.WHITE));
+        paddle = new Paddle(270, 0, 100, 10);
+        int numRows = 8;
+        int numBricksPerRow = 9;
+        int brickWidth = 60;
+        int brickHeight = 20;
+        int startX = 10;
+        int startY = Gdx.graphics.getHeight() - brickHeight - 10;
+        int horizontalSpacing = brickWidth + 10;
+        int verticalSpacing = brickHeight + 10;
+
+        for (int row = 0; row < numRows; row++) {
+            int rowY = startY - row * verticalSpacing;
+            if(row==0){
+                co=Color.RED;
+            }
+            if(row==1){
+                co=Color.ORANGE;
+            }
+            if(row==2){
+                co=Color.YELLOW;
+            }
+            if(row==3){
+                co=Color.GREEN;
+            }
+            if(row==4){
+                co=Color.CYAN;
+            }
+            if(row==5){
+                co=Color.BLUE;
+            }
+            if(row==6){
+                co=Color.PURPLE;
+            }
+            if(row==7){
+                co=Color.PINK;
+            }
+            for (int col = 0; col < numBricksPerRow; col++) {
+                int brickX = startX + col * horizontalSpacing;
+                if(col==1 && row==1){
+                    co=Color.RED;
+                }
+                if (col==2 && row==2){
+                    co=Color.RED;
+                }
+                Brick brick = new Brick(brickX, rowY, brickWidth, brickHeight, co);
+
+                //for (row = 0; row < 8; row++) {
+
+                //}
+                    //for (col = 0; col < 9; col++) {
+                        //bricks[row][0].setColor(Color.RED);
+
+                  //  }
+                bricks[row][col] = brick;
+
+
+            }
         }
+
     }
 
     @Override
     public void render() {
+        int numRows = 8;
+        int numBricksPerRow = 9;
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1);
+
         ball.update(Gdx.graphics.getDeltaTime());
+        paddle.update(Gdx.graphics.getDeltaTime());
+        checkCollisions();
         shape.begin(ShapeRenderer.ShapeType.Filled);
         ball.draw(shape);
-        for (Brick brick : bricks) {
-            brick.draw(shape);
+        paddle.draw(shape);
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numBricksPerRow; col++) {
+                bricks[row][col].draw(shape);
+
+
+            }
+
         }
+
+
+
         shape.end();
+
+
+    }
+
+
+
+    private void checkCollisions() {
+        Rectangle ballRect = new Rectangle(ball.getX(), ball.getY(), ball.getWidth(), ball.getHeight());
+        Rectangle paddleRect = new Rectangle(paddle.getX(), paddle.getY(), paddle.getWidth(), paddle.getHeight());
+        if (ballRect.overlaps(paddleRect)) {
+            ball.setY(paddle.getY() + paddle.getHeight());
+            ball.velocityY = Math.abs(ball.velocityY);
+        }
+
+
+
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 9; col++) {
+                Brick brick = bricks[row][col];
+                Rectangle brickRect = new Rectangle(brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight());
+                if (ballRect.overlaps(brickRect)) {
+                    if (brick.isDestroyed() == false) {
+                    ball.setY(brick.getY() - ball.getHeight());
+                    ball.velocityY = -Math.abs(ball.velocityY);
+
+                        brick.setDestroyed(true);
+                   }
+
+
+                }
+
+            }
+
+        }
+
     }
 
 
@@ -220,7 +325,13 @@ public class Main extends ApplicationAdapter {
     public void dispose() {
         shape.dispose();
     }
+
 }
+
+
+
+
+
 
 
 
@@ -257,15 +368,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Ball {
-    private float x;
-    private float y;
-    private float width;
-    private float height;
+    private int x;
+    private int y;
+    private int width;
+    private int height;
     private Color col;
-    private float velocityX = 200f;
-    private float velocityY = 200f;
+    private int velocityX = 400;
+    int velocityY = 400;
 
-    public Ball(float x, float y, float width, float height) {
+    public Ball(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -273,19 +384,19 @@ public class Ball {
         this.col = new Color(Color.RED);
     }
 
-    public float getX() {
+    public int getX() {
         return x;
     }
 
-    public float getY() {
+    public int getY() {
         return y;
     }
 
-    public float getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public float getHeight() {
+    public int getHeight() {
         return height;
     }
 
@@ -294,11 +405,11 @@ public class Ball {
     }
 
     public void setX(float x) {
-        this.x = x;
+        this.x = (int) x;
     }
 
     public void setY(float y) {
-        this.y = y;
+        this.y = (int) y;
     }
 
 
@@ -322,6 +433,8 @@ public class Ball {
             y = Gdx.graphics.getHeight() - height;
             velocityY = -Math.abs(velocityY);
         }
+
+
     }
 
 
@@ -363,6 +476,7 @@ public class Ball {
 
 
 
+
 BRICK CLASS
 package io.github.some_example_name;
 
@@ -370,25 +484,187 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Brick {
-    private float x;
-    private float y;
-    private float width;
-    private float height;
-    private Color color;
+    boolean destroyed;
+    private int x;
+    private int y;
+    private int width;
+    private int height;
+    private Color col;
 
-    public Brick(float x, float y, float width, float height, Color color) {
+
+    public Brick(int x, int y, int width, int height, Color c) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.color = color;
+        col = c;
+        destroyed = false;
     }
 
+    public void setColor(Color color) {
+        col = color;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+
+
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
+
+    public void setDestroyed(boolean destroyed) {
+        this.destroyed = destroyed;
+
+        if (this.destroyed == true) {
+            dispose();
+            x = -1000;
+            y = -1000;
+        }
+    }
+
+
     public void draw(ShapeRenderer shape) {
-        shape.setColor(color);
+        shape.setColor(col);
         shape.rect(x, y, width, height);
     }
+
+
+
+
+    private void dispose() {
+
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PADDLE CLASS
+package io.github.some_example_name;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
+public class Paddle {
+    private int x;
+    private int y;
+    private int width;
+    private int height;
+    private Color col;
+    private int velocityX = 200;
+
+    public Paddle(int x, int y, int width, int height) {
+        this.x = (int) x;
+        this.y = (int) y;
+        this.width = (int) width;
+        this.height = (int) height;
+        this.col = new Color(Color.WHITE);
+    }
+
+
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
+    public int getWidth() {
+        return width;
+    }
+    public int getHeight() {
+        return height;
+    }
+    public Color getCol() {
+        return col;
+    }
+
+    public float setX(float x) {
+        return this.x = (int) x;
+    }
+    public float setY(float y) {
+        return this.y = (int) y;
+    }
+
+
+    public void update(float delta) {
+
+        if (x <= 0) {
+            x = 0;
+            velocityX = Math.abs(velocityX);
+        } else if (x + width >= Gdx.graphics.getWidth()) {
+            x = Gdx.graphics.getWidth() - width;
+            velocityX = -Math.abs(velocityX);
+        }
+
+
+    }
+
+
+
+
+    public void draw(ShapeRenderer shape) {
+        shape.setColor(col);
+        shape.rect(x, y, width, height);
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            x = x + -20;
+            shape.rect(x, y, width, height);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            x = x + 20;
+            shape.rect(x, y, width, height);
+        }
+    }
+
+
+
+
+
+}
+
+
+
+
 
 
 
