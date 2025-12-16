@@ -209,47 +209,253 @@ public class Main extends ApplicationAdapter {
 
         for (int row = 0; row < numRows; row++) {
             int rowY = startY - row * verticalSpacing;
-            if(row==0){
-                co=Color.RED;
-            }
-            if(row==1){
-                co=Color.ORANGE;
-            }
-            if(row==2){
-                co=Color.YELLOW;
-            }
-            if(row==3){
-                co=Color.GREEN;
-            }
-            if(row==4){
-                co=Color.CYAN;
-            }
-            if(row==5){
-                co=Color.BLUE;
-            }
-            if(row==6){
-                co=Color.PURPLE;
-            }
-            if(row==7){
-                co=Color.PINK;
-            }
             for (int col = 0; col < numBricksPerRow; col++) {
                 int brickX = startX + col * horizontalSpacing;
-                if(col==1 && row==1){
+                if (col==0 && row==7){
                     co=Color.RED;
+                }
+                if (col==0 && row==6){
+                    co=Color.RED;
+                }
+                if (col==0 && row==5){
+                    co=Color.ORANGE;
+                }
+                if (col==1 && row==6){
+                    co=Color.ORANGE;
+                }
+                if (col==2 && row==7){
+                    co=Color.ORANGE;
+                }
+                if (col==0 && row==4){
+                    co=Color.YELLOW;
+                }
+                if (col==1 && row==5){
+                    co=Color.YELLOW;
+                }
+                if (col==2 && row==6){
+                    co=Color.YELLOW;
+                }
+                if (col==3 && row==7){
+                    co=Color.YELLOW;
+                }
+                if (col==0 && row==3){
+                    co=Color.GREEN;
+                }
+                if (col==1 && row==4){
+                    co=Color.GREEN;
+                }
+                if (col==2 && row==5){
+                    co=Color.GREEN;
+                }
+                if (col==3 && row==6){
+                    co=Color.GREEN;
+                }
+                if (col==4 && row==7){
+                    co=Color.GREEN;
+                }
+                if (col==0 && row==2){
+                    co=Color.CYAN;
+                }
+                if (col==1 && row==3){
+                    co=Color.CYAN;
+                }
+                if (col==2 && row==4){
+                    co=Color.CYAN;
+                }
+                if (col==3 && row==5){
+                    co=Color.CYAN;
+                }
+                if (col==4 && row==6){
+                    co=Color.CYAN;
+                }
+                if (col==5 && row==7){
+                    co=Color.CYAN;
+                }
+                if (col==0 && row==1){
+                    co=Color.BLUE;
+                }
+                if (col==1 && row==2){
+                    co=Color.BLUE;
+                }
+                if (col==2 && row==3){
+                    co=Color.BLUE;
+                }
+                if (col==3 && row==4){
+                    co=Color.BLUE;
+                }
+                if (col==4 && row==5){
+                    co=Color.BLUE;
+                }
+                if (col==5 && row==6){
+                    co=Color.BLUE;
+                }
+                if (col==6 && row==7){
+                    co=Color.BLUE;
+                }
+                if (col==0 && row==0){
+                    co=Color.PURPLE;
+                }
+                if (col==1 && row==1){
+                    co=Color.PURPLE;
                 }
                 if (col==2 && row==2){
+                    co=Color.PURPLE;
+                }
+                if (col==3 && row==3){
+                    co=Color.PURPLE;
+                }
+                if (col==4 && row==4){
+                    co=Color.PURPLE;
+                }
+                if (col==5 && row==5){
+                    co=Color.PURPLE;
+                }
+                if (col==6 && row==6){
+                    co=Color.PURPLE;
+                }
+                if (col==7 && row==7){
+                    co=Color.PURPLE;
+                }
+
+//---------------------------------------------------------
+
+                if (col==8 && row==0){
                     co=Color.RED;
                 }
+                if (col==8 && row==1){
+                    co=Color.RED;
+                }
+                if (col==7 && row==0){
+                    co=Color.RED;
+                }
+                if (col==6 && row==0){
+                    co=Color.ORANGE;
+                }
+                if (col==7 && row==1){
+                    co=Color.ORANGE;
+                }
+                if (col==8 && row==2){
+                    co=Color.ORANGE;
+                }
+                if (col==5 && row==0){
+                    co=Color.YELLOW;
+                }
+                if (col==6 && row==1){
+                    co=Color.YELLOW;
+                }
+                if (col==7 && row==2){
+                    co=Color.YELLOW;
+                }
+                if (col==8 && row==3){
+                    co=Color.YELLOW;
+                }
+                if (col==4 && row==0){
+                    co=Color.GREEN;
+                }
+                if (col==5 && row==1){
+                    co=Color.GREEN;
+                }
+                if (col==6 && row==2){
+                    co=Color.GREEN;
+                }
+                if (col==7 && row==3){
+                    co=Color.GREEN;
+                }
+                if (col==8 && row==4){
+                    co=Color.GREEN;
+                }
+                if (col==3 && row==0){
+                    co=Color.CYAN;
+                }
+                if (col==4 && row==1){
+                    co=Color.CYAN;
+                }
+                if (col==5 && row==2){
+                    co=Color.CYAN;
+                }
+                if (col==6 && row==3){
+                    co=Color.CYAN;
+                }
+                if (col==7 && row==4){
+                    co=Color.CYAN;
+                }
+                if (col==8 && row==5){
+                    co=Color.CYAN;
+                }
+                if (col==2 && row==0){
+                    co=Color.BLUE;
+                }
+                if (col==3 && row==1){
+                    co=Color.BLUE;
+                }
+                if (col==4 && row==2){
+                    co=Color.BLUE;
+                }
+                if (col==5 && row==3){
+                    co=Color.BLUE;
+                }
+                if (col==6 && row==4){
+                    co=Color.BLUE;
+                }
+                if (col==7 && row==5){
+                    co=Color.BLUE;
+                }
+                if (col==8 && row==6){
+                    co=Color.BLUE;
+                }
+                if (col==1 && row==0){
+                    co=Color.PINK;
+                }
+                if (col==2 && row==1){
+                    co=Color.PINK;
+                }
+                if (col==3 && row==2){
+                    co=Color.PINK;
+                }
+                if (col==4 && row==3){
+                    co=Color.PINK;
+                }
+                if (col==5 && row==4){
+                    co=Color.PINK;
+                }
+                if (col==6 && row==5){
+                    co=Color.PINK;
+                }
+                if (col==7 && row==6){
+                    co=Color.PINK;
+                }
+                if (col==8 && row==7){
+                    co=Color.PINK;
+                }
+                if (col==0 && row==0){
+                    co=Color.PURPLE;
+                }
+                if (col==1 && row==1){
+                    co=Color.PURPLE;
+                }
+                if (col==2 && row==2){
+                    co=Color.PURPLE;
+                }
+                if (col==3 && row==3){
+                    co=Color.PURPLE;
+                }
+                if (col==4 && row==4){
+                    co=Color.PURPLE;
+                }
+                if (col==5 && row==5){
+                    co=Color.PURPLE;
+                }
+                if (col==6 && row==6){
+                    co=Color.PURPLE;
+                }
+                if (col==7 && row==7){
+                    co=Color.PURPLE;
+                }
+
+
+
+
                 Brick brick = new Brick(brickX, rowY, brickWidth, brickHeight, co);
-
-                //for (row = 0; row < 8; row++) {
-
-                //}
-                    //for (col = 0; col < 9; col++) {
-                        //bricks[row][0].setColor(Color.RED);
-
-                  //  }
                 bricks[row][col] = brick;
 
 
